@@ -1,0 +1,13 @@
+name: 'Matrix test'
+on:
+  push
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        apps: ['foo', 'bar', 'baz']
+    steps:
+    - run: sleep 90
+      timeout-minutes: 1
