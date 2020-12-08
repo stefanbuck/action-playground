@@ -1,0 +1,10 @@
+on:
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: mshick/add-pr-comment@07f690343c25a94e24a8acb70d03c86b701ae322
+      with:
+          message: Hello ${{ join('foo bar baz') }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
