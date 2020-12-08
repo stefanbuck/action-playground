@@ -27,5 +27,5 @@ jobs:
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         body: |
-          This comment has been updated!
+          This comment has been ${{ join([1,2,3], '\n-) }} updated!
         edit-mode: replace
