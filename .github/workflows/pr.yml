@@ -6,5 +6,5 @@ jobs:
     steps:
     - uses: mshick/add-pr-comment@07f690343c25a94e24a8acb70d03c86b701ae322
       with:
-          message: ${{ join(github.event.commits.*.message, '\n-') }}
+          message: ${{ join('foo bar baz', '\n') }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
