@@ -4,7 +4,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: mshick/add-pr-comment@07f690343c25a94e24a8acb70d03c86b701ae322
+    - name: Find Comment
+      uses: peter-evans/find-comment@v1
+      id: fc
       with:
-          message: Hello ${{ join('foo bar baz') }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-author: 'github-actions[bot]'
+        body-includes: This comment was written by a bot!
+
+    - name: Create comment
+      if: ${{ steps.fc.outputs.comment-id == 0 }}
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          This comment was written by a bot!
+        reaction-type: "rocket"
+
+    - name: Update comment
+      if: ${{ steps.fc.outputs.comment-id != 0 }}
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        comment-id: ${{ steps.fc.outputs.comment-id }}
+        body: |
+          This comment has been ${{ join([1,2,3], '\n-') }} updated!
+        edit-mode: replace
